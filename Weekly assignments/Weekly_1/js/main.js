@@ -54,9 +54,7 @@ let markerArray = [];
  Once running
  */
 
-GetData();
-
-function GetData() {
+const GetData = () => {
     const myRequest = new Request('./data.json', {
         headers: new Headers({
             'Content-Type': 'text/json'
@@ -78,93 +76,102 @@ function GetData() {
     });
 }
 
-function FindAllCategories() {
+const FindAllCategories = () => {
     categoryArray = dataArr.map(object => {
         return object.category;
     })
-    categoryArray = categoryArray.filter(function (elem, index, self) {
+    categoryArray = categoryArray.filter((elem, index, self) => {
         return index == self.indexOf(elem);
     })
 };
 
-function PopulateDropdown() {
+const PopulateDropdown = () => {
     for (let category of categoryArray) {
         console.log(category);
         document.getElementById("categories_dropdown").innerHTML += `
         <li class="cat-category"><a href="#">` + category + `</a></li>
     `
     }
-}
+};
 
-function Populate(sourceArray) {
-    console.log("jeeben");
-    for (let i = 0; i < sourceArray.length; i++) {
+const Populate = (sourceArray) => {
+    EmptyContent();
+    for (let cat of sourceArray) {
         console.log("looping")
-        document.getElementById("main").innerHTML += `
+        const thing = makeCard(cat.image,cat.title,cat.time,cat.details,cat.category,cat.id);
+        document.getElementById("main").innerHTML += thing;
+    }
+};
+
+const makeCard = (src,title,date,details,category,id) => {
+    console.log(id);
+    return `
 <div class="container-fluid cat-container" >
     <div class="row cat-row">
         <div class="col-md-3 col-md-offset-1 col-sm-6 col-xs-12">
-            <img class="thumbnail cat-thumbnail" src="` + sourceArray[i].thumbnail + `"/>
+            <img class="thumbnail cat-thumbnail" src="`+src+`"/>
         </div>
         <div class="col-md-5 col-sm-6 col-xs-12 container cat-information">
             <div class="row" style="margin-bottom:2em;">
-                <h3 class="cat-title col-xs-5 ">` + sourceArray[i].title + ` <span class="label label-info">` + sourceArray[i].category + `</span> </h3>  
-                <p class="col-xs-5" style="text-align: right">` + ConvertDate(sourceArray[i].time) + `</p>
+                <h3 class="cat-title col-xs-5 ">` + title + ` <span class="label label-info">` + category + `</span> </h3>  
+                <p class="col-xs-5" style="text-align: right">` + ConvertDate(date) + `</p>
             </div>
             <div class="row">
-                <p class="col-md-10">` + sourceArray[i].details + `</p>
+                <p class="col-md-10">` + details + `</p>
             </div>
         </div>
         
 
     </div>
     <div class="row text-center" id="button-footer">
-        <button data-identification="` + sourceArray[i].id + `" class="btn button-footer-button" data-toggle="modal" data-target="#myModal">View</button>
+        <button data-identification="` +id + `" class="btn button-footer-button" data-toggle="modal" data-target="#myModal">View</button>
     </div>
     
 </div>`
-    }
-}
+};
 
-function EmptyContent() {
+const EmptyContent = () => {
+    console.log("emptying")
     $("#main").empty();
-}
+};
 
-function ConvertDate(dateString) {
+const ConvertDate = (dateString) => {
     /*const date = new Date(Date.parse(dataArr[0].time));
      console.log("original date " + dateString + "\nnewDate " + date.getDay().toString() + "." + date.getMonth() + "." + date.getYear())*/
     const dateMembers = dateString.split(new RegExp("[- ]", "g"));
     console.log(dateMembers);
     return dateMembers[2] + "." + dateMembers[1] + "." + dateMembers[0];
-}
+};
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('googleMapContainer'), {
         center: {lat: -34.397, lng: 150.644},
         zoom: 12
     });
-}
+};
 
-function moveGoogleMapToCoordinate(lat, lng) {
+const moveGoogleMapToCoordinate = (lat, lng) => {
     const center = new google.maps.LatLng(lat, lng);
     map.setZoom(15);
     map.panTo(center);
-}
+};
 
-function getCatById(id) {
+const getCatById = (id) => {
     for (let cat of dataArr) {
         if (cat.id == id) {
             return cat;
         }
     }
-}
+};
 
-function clearMapMarkers(){
+const clearMapMarkers = () => {
     for (let marker of markerArray){
         marker.setMap(null);
     }
     markerArray = [];
-}
+};
+
+GetData();
 
 /*$(".view-btn").click(function () {
  //$(".modal-content").empty().append(`<img class="col-xs-12" src="` + dataArr[$(this).attr("data-identification")].image + `"/>`);
@@ -176,12 +183,12 @@ function clearMapMarkers(){
 
 $(".dropdown").on("click", ".cat-category", function () {
     console.log("cat category clicked");
-    EmptyContent();
     const indexOfLink = $(this).index();
     if (indexOfLink == 0) {
         Populate(dataArr);
     } else {
         const ilteredDataArr = dataArr.filter(object => object.category == categoryArray[$(this).index() - 1]);
+        console.log(ilteredDataArr);
         Populate(ilteredDataArr);
     }
 });
@@ -207,4 +214,3 @@ $("#myModal").on("shown.bs.modal", (e) => {
 
 
 //<li><a href="#">Action</a></li>
-
