@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js" lang="" style="height:100%; width: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body style="height:100%; width: auto">
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div id="myModal" class="modal col-xs-12" style="height:100%; width: auto" role="dialog">
+    <div class="modal-dialog modal-lg" style="height:80%; width: auto">
+
+        <!-- Modal content-->
+        <div class="modal-content container col-xs-12" style="display: inline-block; height: 100%">
+            <img class="cat-image-full col-xs-12 col-md-6" src="#" id="cat-image"/>
+            <div class="col-xs-12 googlemap col-md-6" style="height:100%">
+                <div id="googleMapContainer" class="col-xs-6 "></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="dropdown" style="padding-left: 15px">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+        Categories
+        <span class="caret"></span>
+    </button>
+    <ol class="dropdown-menu" aria-labelledby="dropdownMenu1" id="categories_dropdown">
+        <li class="cat-category"><a href="#">All</a></li>
+    </ol>
+</div>
+<div class="container-fluid" id="main">
+
+</div>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
+<script src="js/plugins.js"></script>
+<script src="js/main.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASkaNSW9yX8HELM3sFITjPTGf914iFSro&callback=initMap"
+        async defer></script>
+
+<!--bootstrap-->
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</html>
